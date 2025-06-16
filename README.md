@@ -561,8 +561,11 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 ## Key Takeaways:
 
 ${{\color{orange}\small{\textsf{Reliance on Native Tools:\ }}}}\$ The adversary heavily utilized PowerShell, indicating a "living off the land" approach to minimize the footprint of custom malware.
+
 ${{\color{orange}\small{\textsf{Layered Persistence:\ }}}}\$ Multiple persistence mechanisms (Registry Run keys, Scheduled Tasks, WMI) were employed, showcasing the adversary's determination to maintain access.
+
 ${{\color{orange}\small{\textsf{Evasion Techniques:\ }}}}\$ Obfuscated PowerShell commands and the use of legacy PowerShell versions underscore the adversary's efforts to evade traditional detections.
+
 ${{\color{orange}\small{\textsf{Targeted Data Acquisition:\ }}}}\$ The focus on documents like RolloutPlan_v8_477.docx confirms the adversary's intent to acquire specific, high-value information.
 
 ## Recommendations for Enhanced Security Posture:
