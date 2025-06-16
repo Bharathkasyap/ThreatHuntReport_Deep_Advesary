@@ -562,6 +562,7 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
   Schedule quarterly hunts using adversary TTPs as hypothesis.
   
 </details>
+
 ---
 
 ## Key Takeaways:
