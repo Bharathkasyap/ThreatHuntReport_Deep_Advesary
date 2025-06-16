@@ -604,9 +604,10 @@ ${{\color{orange}\small{\textsf{Enhanced PowerShell Logging and Monitoring:\ }}}
 ${{\color{orange}\small{\textsf{WMI Event Monitoring:\ }}}}\$ Strengthen WMI event logging and actively monitor for suspicious WMI Permanent Event Consumers, Filters, and Bindings, especially those related to PowerShell execution.
 
 ${{\color{orange}\small{\textsf{Scheduled Task Monitoring:\ }}}}\$ Implement granular logging for scheduled task creation, modification, and execution. Establish baselines for legitimate tasks and alert on deviations.
+
 ${{\color{orange}\small{\textsf{Outbound Network Traffic Analysis:\ }}}}\$ Continuously monitor common and uncommon registry run keys for unauthorized modifications or new entries, particularly those associated with scripting engines.
 
-${{\color{orange}\small{\textsf{Registry Monitoring for Persistence:\ }}}}\$Implement deep packet inspection and network flow analysis to detect anomalous outbound connections to unsanual or untrusted domains and IP addresses, especially those associated with cloud services like Pipedream.
+${{\color{orange}\small{\textsf{Registry Monitoring for Persistence:\ }}}}\$ Implement deep packet inspection and network flow analysis to detect anomalous outbound connections to unsanual or untrusted domains and IP addresses, especially those associated with cloud services like Pipedream.
 
 ${{\color{orange}\small{\textsf{Endpoint Detection and Response (EDR) Tuning:\ }}}}\$ Review and fine-tune EDR rules to detect the specific TTPs observed, including suspicious file creations (e.g., savepoint_sync.ps1, mimidump_sim.txt, spicycore_loader_flag8.zip) and process command lines.
 
