@@ -416,6 +416,23 @@ This threat hunt successfully mapped a multi-stage intrusion, demonstrating the 
 
 ---
 
+|   Timeframe / Order | Event                                                                             |
+|--------------------:|:----------------------------------------------------------------------------------|
+|                   1 | PowerShell used on VM Acolyte756 for initial reconnaissance.                      |
+|                   2 | Execution of obfuscated PowerShell scripts using -EncodedCommand and -Version 2.  |
+|                   3 | Registry keys modified to autostart C2.ps1 upon reboot.                           |
+|                   4 | Scheduled task (SimC2Task) created for persistence.                               |
+|                   5 | WMI event triggered execution set up (beacon_sync_job_flag2.ps1).                 |
+|                   6 | Mimidump_sim.txt accessed, simulating credential dumping.                         |
+|                   7 | Lateral movement from Acolyte756 to victor-disa-vm via SMB and valid credentials. |
+|                   8 | Sensitive file RolloutPlan_v8_477.docx accessed.                                  |
+|                   9 | Data and tools packaged using Compress-Archive (spicycore_loader_flag8.zip).      |
+|                  10 | Outbound communication to pipedream.net C2 via HTTPS begins.                      |
+|                  11 | Security tools detect anomalies, triggering analyst review and hunt initiation.   |
+
+
+---
+
 ## 🧠 MITRE ATT&CK TTPs Mapped – Operation Deep Access
 
 Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structured view of the adversary's behavior using the MITRE ATT&CK framework.
@@ -582,7 +599,7 @@ Targeted Data Acquisition: The focus on documents like RolloutPlan_v8_477.docx c
 
 ## Recommendations for Enhanced Security Posture:
 
-**Enhanced PowerShell Logging and Monitoring: ** Implement Script Block Logging, Module Logging, and Transcription for all PowerShell activities. Centralize these logs for robust analysis and anomaly detection. Develop specific detection rules for encoded commands and downgraded PowerShell versions.
+${{\color{blue}\huge{\textsf{Enhanced PowerShell Logging and Monitoring:\ }}}}\$ Implement Script Block Logging, Module Logging, and Transcription for all PowerShell activities. Centralize these logs for robust analysis and anomaly detection. Develop specific detection rules for encoded commands and downgraded PowerShell versions.
 
 **WMI Event Monitoring: ** Strengthen WMI event logging and actively monitor for suspicious WMI Permanent Event Consumers, Filters, and Bindings, especially those related to PowerShell execution.
 
