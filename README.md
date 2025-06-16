@@ -432,9 +432,9 @@ This threat hunt successfully mapped a multi-stage intrusion, demonstrating the 
 
 ---
 
+##  🧠 MITRE ATT&CK TTPs Mapped – Operation Deep Access
 <details>
-<summary><strong>
-##  🧠 MITRE ATT&CK TTPs Mapped – Operation Deep Access </strong></summary>
+<summary><strong> click here to expand </strong></summary>
 
 Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structured view of the adversary's behavior using the MITRE ATT&CK framework.
 
@@ -480,9 +480,11 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 </details>
 
 ---
+
+## 🚨 Incident Response Playbook
+
 <details>
-<summary><strong>
-## 🚨 Incident Response Playbook</strong></summary>
+<summary><strong> click here to expand </strong></summary>
 
 ### 🛑 Immediate Containment & Eradication
 
