@@ -67,14 +67,15 @@ This section details the progression of the threat hunt, presenting each discove
 
 *Timeframe of Interest*: Approximately May 24th, 2025, suggesting a window spanning a day before and a day after to capture precursor activities or immediate follow-ups.
 
-**Query Used**:
+<details>
+<summary><strong>**Query Used**:
 ```kusto
 DeviceProcessEvents
 | where Timestamp between (datetime(2025-05-23 00:00:00) ..datetime(2025-05-25 23:59:59) )
 |summarize ProcessCount = count()by DeviceName
 | where DeviceName startswith "a"
 |order by ProcessCount asc
-```
+```</details>
 Discovery: Acolyte756
 
 ### Flag 1 – Initial PowerShell Execution Detection
@@ -89,7 +90,8 @@ Upon identifying Acolyte756 as the most probable initial access host due to its 
 
 Discovery: 2025-05-25T09:14:02.3908261Z
 
-Query Used:
+<details>
+<summary><strong>Query Used:
 
 ```kusto
 DeviceProcessEvents
@@ -98,7 +100,7 @@ DeviceProcessEvents
 | where FileName has "Powershell.exe"
 | project Timestamp, DeviceName, InitiatingProcessFileName, FileName, ProcessCommandLine, AccountName
 | order by Timestamp asc
-```
+```</details>
 ### Flag 2 – Suspicious Outbound Command and Control (C2) Signal
 Objective: To confirm the establishment of unusual outbound communication from the potentially compromised host, indicative of C2 channel establishment.
 
