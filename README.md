@@ -432,7 +432,9 @@ This threat hunt successfully mapped a multi-stage intrusion, demonstrating the 
 
 ---
 
-## 🧠 MITRE ATT&CK TTPs Mapped – Operation Deep Access
+<details>
+<summary><strong>
+## 🧠 MITRE ATT&CK TTPs Mapped – Operation Deep Access </strong></summary>
 
 Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structured view of the adversary's behavior using the MITRE ATT&CK framework.
 
@@ -475,9 +477,12 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 - **T1560.001**: Archive Collected Data: Archive via Utility  
   _Use of `Compress-Archive` to bundle stolen tools and data (e.g., `spicycore_loader_flag8.zip`)._
 
----
+</details>
 
-## 🚨 Incident Response Playbook
+---
+<details>
+<summary><strong>
+## 🚨 Incident Response Playbook</strong></summary>
 
 ### 🛑 Immediate Containment & Eradication
 
@@ -555,7 +560,8 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
   Train staff on phishing, drive-by, and shadow IT risks.
 - **Proactive Threat Hunts**  
   Schedule quarterly hunts using adversary TTPs as hypothesis.
-
+  
+</details>
 ---
 
 ## Key Takeaways:
