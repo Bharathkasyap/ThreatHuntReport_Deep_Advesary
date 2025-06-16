@@ -440,53 +440,39 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 ### Initial Access (TA0001)
 - **T1059.001**: Command and Scripting Interpreter: PowerShell  
   _Used for reconnaissance and establishing an initial foothold via PowerShell execution._
-
 ### Execution (TA0002)
 - **T1059.001**: Command and Scripting Interpreter: PowerShell  
   _Extensive PowerShell usage for executing obfuscated malicious scripts._
-
 ### Persistence (TA0003)
 - **T1547.001**: Boot or Logon Autostart Execution: Registry Run Keys / Startup Folder  
   _Registry keys (e.g., `C2.ps1`) modified to auto-execute malicious scripts._
-
 - **T1053.005**: Scheduled Task/Job  
   _Creation of scheduled tasks (`SimC2Task`) for long-term persistence._
-
 - **T1546.003**: Event Triggered Execution: Windows Management Instrumentation (WMI)  
   _Use of WMI to embed persistent scripts (e.g., `beacon_sync_job_flag2.ps1`)._
-
 ### Defense Evasion (TA0005)
 - **T1027**: Obfuscated Files or Information  
   _Encoded PowerShell commands to bypass detection._
-
 - **T1027.004**: Obfuscated Files or Information: Compile After Delivery  
   _Obfuscated scripts hint at compile-after-delivery execution._
-
 - **T1059.001**: PowerShell Version Downgrade  
   _Use of `-Version 2` to reduce telemetry visibility._
-
 ### Credential Access (TA0006)
 - **T1003**: OS Credential Dumping  
   _Simulated with `mimidump_sim.txt`, hinting credential theft attempts._
-
 ### Lateral Movement (TA0008)
 - **T1021.002**: Remote Services: SMB/Windows Admin Shares  
   _Credentialed remote access from `Acolyte756` to `victor-disa-vm`._
-
 ### Command and Control (TA0011)
 - **T1071.001**: Application Layer Protocol: Web Protocols  
   _C2 over HTTP(S) to `pipedream.net` endpoints._
-
 - **T1573.002**: Encrypted Channel: Asymmetric Cryptography  
   _Inferred encryption via HTTPS C2 communication._
-
 ### Exfiltration (TA0010)
 - **T1041**: Exfiltration Over C2 Channel  
   _Outbound connections used to transmit stolen data._
-
 - **T1005**: Data from Local System  
   _Access to `RolloutPlan_v8_477.docx` reveals targeting of sensitive documents._
-
 - **T1560.001**: Archive Collected Data: Archive via Utility  
   _Use of `Compress-Archive` to bundle stolen tools and data (e.g., `spicycore_loader_flag8.zip`)._
 
