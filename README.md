@@ -67,7 +67,6 @@ This section details the progression of the threat hunt, presenting each discove
 
 *Timeframe of Interest*: Approximately May 24th, 2025, suggesting a window spanning a day before and a day after to capture precursor activities or immediate follow-ups.
 
-<details>
 **Query Used**:
 ```kusto
 DeviceProcessEvents
