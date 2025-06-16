@@ -75,7 +75,8 @@ DeviceProcessEvents
 |summarize ProcessCount = count()by DeviceName
 | where DeviceName startswith "a"
 |order by ProcessCount asc
-```</details>
+```
+</details>
 Discovery: Acolyte756
 
 ### Flag 1 – Initial PowerShell Execution Detection
