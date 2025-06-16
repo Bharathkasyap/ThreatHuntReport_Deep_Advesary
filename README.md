@@ -89,8 +89,7 @@ Upon identifying Acolyte756 as the most probable initial access host due to its 
 
 Discovery: 2025-05-25T09:14:02.3908261Z
 
-<details>
-<summary><strong>Query Used:
+Query Used:
 
 ```kusto
 DeviceProcessEvents
@@ -99,7 +98,7 @@ DeviceProcessEvents
 | where FileName has "Powershell.exe"
 | project Timestamp, DeviceName, InitiatingProcessFileName, FileName, ProcessCommandLine, AccountName
 | order by Timestamp asc
-```</details>
+```
 ### Flag 2 – Suspicious Outbound Command and Control (C2) Signal
 Objective: To confirm the establishment of unusual outbound communication from the potentially compromised host, indicative of C2 channel establishment.
 
@@ -484,15 +483,12 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 
 - **Quarantine Compromised Systems**  
   Isolate `Acolyte756` and `victor-disa-vm` from the network.
-
 - **Force Credential Resets**  
   Reset credentials for accounts involved in lateral movement. Enforce MFA.
-
 - **Remove Persistence Mechanisms**  
   - Registry Run entries (e.g., `C2.ps1`)  
   - Scheduled Tasks (`SimC2Task`)  
   - WMI Consumers/Filters (e.g., `beacon_sync_job_flag2.ps1`)
-
 - **Delete Malicious Files**  
   Remove:
   - `C2.ps1`
@@ -501,7 +497,6 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
   - `beacon_sync_job_flag2.ps1`
   - `mimidump_sim.txt`
   - `spicycore_loader_flag8.zip`
-
 - **Block C2 Infrastructure**  
   Blacklist:
   - `eoqsu1hq6e9ulga.m.pipedream.net`
@@ -510,23 +505,19 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 ---
 
 ### 🔧 Post-Incident Recovery & Hardening
-
 - **Reimage Compromised Devices**  
   Fully rebuild `Acolyte756` and `victor-disa-vm` using golden images.
-
 - **Acquire Forensic Images**  
   Snapshot both machines before reimage for deeper IR analysis.
 
 ---
 
 ### 🧾 Logging & Telemetry Enhancements
-
 - **PowerShell Logging**  
   Enable:
   - Script Block Logging  
   - Module Logging  
   - Transcription
-
 - **WMI & Process Logging**  
   - Enable detailed WMI event tracking  
   - Monitor parent-child process chains (PowerShell & WMI)
@@ -534,16 +525,13 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 ---
 
 ### 🛡️ Strengthen Endpoint & Network Security
-
 - **EDR Rule Tuning**  
   Custom rules for:
   - `EncodedCommand`
   - WMI persistence
   - Execution from `C:\Users\Public`
-
 - **Application Control**  
   Block PowerShell from staging areas using AppLocker or WDAC.
-
 - **Egress Filtering & DPI**  
   - Restrict outbound access to trusted domains only  
   - Deploy DPI to detect C2-like traffic patterns
@@ -551,26 +539,20 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 ---
 
 ### 👤 Identity Management
-
 - **Enforce MFA**  
   Apply across all users, especially privileged accounts.
-
 - **Privileged Access Controls**  
   Implement PAM to isolate and monitor privileged access.
-
 - **Credential Audit**  
   Detect reused or weak local admin passwords.
 
 ---
 
 ### 🔄 Long-Term Strategy
-
 - **Threat Intelligence Feeds**  
   Ingest IOCs and map to internal events.
-
 - **Security Awareness**  
   Train staff on phishing, drive-by, and shadow IT risks.
-
 - **Proactive Threat Hunts**  
   Schedule quarterly hunts using adversary TTPs as hypothesis.
 
@@ -578,10 +560,10 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 
 ## Key Takeaways:
 
-Reliance on Native Tools: The adversary heavily utilized PowerShell, indicating a "living off the land" approach to minimize the footprint of custom malware.
-Layered Persistence: Multiple persistence mechanisms (Registry Run keys, Scheduled Tasks, WMI) were employed, showcasing the adversary's determination to maintain access.
-Evasion Techniques: Obfuscated PowerShell commands and the use of legacy PowerShell versions underscore the adversary's efforts to evade traditional detections.
-Targeted Data Acquisition: The focus on documents like RolloutPlan_v8_477.docx confirms the adversary's intent to acquire specific, high-value information.
+${{\color{orange}\small{\textsf{Reliance on Native Tools:\ }}}}\$ The adversary heavily utilized PowerShell, indicating a "living off the land" approach to minimize the footprint of custom malware.
+${{\color{orange}\small{\textsf{Layered Persistence:\ }}}}\$ Multiple persistence mechanisms (Registry Run keys, Scheduled Tasks, WMI) were employed, showcasing the adversary's determination to maintain access.
+${{\color{orange}\small{\textsf{Evasion Techniques:\ }}}}\$ Obfuscated PowerShell commands and the use of legacy PowerShell versions underscore the adversary's efforts to evade traditional detections.
+${{\color{orange}\small{\textsf{Targeted Data Acquisition:\ }}}}\$ The focus on documents like RolloutPlan_v8_477.docx confirms the adversary's intent to acquire specific, high-value information.
 
 ## Recommendations for Enhanced Security Posture:
 
