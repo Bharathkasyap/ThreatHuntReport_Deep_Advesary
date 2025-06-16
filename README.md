@@ -47,10 +47,10 @@ DeviceProcessEvents
 |summarize ProcessCount = count()by DeviceName
 | where DeviceName startswith "a"
 |order by ProcessCount asc
-
+```
 Discovery: Acolyte756
 
-Flag 1 – Initial PowerShell Execution Detection
+### Flag 1 – Initial PowerShell Execution Detection
 Objective: Pinpoint the earliest observed suspicious PowerShell activity, marking the probable initial execution phase of the intruder's operations.
 
 What was Hunted: Instances of powershell.exe being invoked in a manner that deviates from typical baseline usage, particularly focusing on early timestamps.
@@ -65,14 +65,15 @@ Discovery: 2025-05-25T09:14:02.3908261Z
 Query Used:
 
 Code snippet
-
+```
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
 | where InitiatingProcessFileName == "powershell.exe"
 | where FileName has "Powershell.exe"
 | project Timestamp, DeviceName, InitiatingProcessFileName, FileName, ProcessCommandLine, AccountName
 | order by Timestamp asc
-Flag 2 – Suspicious Outbound Command and Control (C2) Signal
+```
+### Flag 2 – Suspicious Outbound Command and Control (C2) Signal
 Objective: To confirm the establishment of unusual outbound communication from the potentially compromised host, indicative of C2 channel establishment.
 
 What was Hunted: External network destinations that are not legitimate business operations or common update services.
@@ -84,7 +85,7 @@ Discovery: eoqsu1hq6e9ulga.m.pipedream.net
 Query Used:
 
 Code snippet
-
+```
 DeviceNetworkEvents
 | where DeviceName == "acolyte756"
 | where RemoteUrl != "" or RemoteIPType == "Public"
@@ -92,7 +93,8 @@ DeviceNetworkEvents
 | where InitiatingProcessFileName has_any ("powershell.exe", "cmd.exe", "wscript.exe", "curl.exe", "wget.exe")
 | project Timestamp, RemoteUrl, RemoteIP, InitiatingProcessFileName, InitiatingProcessCommandLine, Protocol, RemotePort
 | order by Timestamp desc
-Flag 3 – Registry-based Autorun Persistence Mechanism
+```
+### Flag 3 – Registry-based Autorun Persistence Mechanism
 Objective: Detect whether the adversary established persistence through standard registry-based autorun mechanisms.
 
 What was Hunted: Newly created registry values that execute programs, particularly focusing on those initiated by PowerShell. The goal was to identify the specific program associated with this persistence.
@@ -107,13 +109,14 @@ Discovery: C2.ps1
 Query Used:
 
 Code snippet
-
+```
 DeviceRegistryEvents
 | where DeviceName == "acolyte756"
 | where InitiatingProcessFileName has_any ("powershell.exe")
 | project RegistryValueData, Timestamp, RegistryKey,RegistryValueName,InitiatingProcessFileName,InitiatingProcessCommandLine,InitiatingProcessFolderPath
 // timestamp 2025-05-25T09:14:02.7132107Z
-Flag 4 – Scheduled Task Persistence: Redundant Foothold
+```
+### Flag 4 – Scheduled Task Persistence: Redundant Foothold
 Objective: Investigate the presence of alternate autorun methods, specifically focusing on scheduled tasks, which offer a robust and stealthy persistence mechanism.
 
 What was Hunted: Evidence of scheduled task creation within the system, particularly identifying the earliest registry value associated with such a task.
@@ -128,13 +131,14 @@ Discovery: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sched
 Query Used:
 
 Code snippet
-
+```
 DeviceRegistryEvents
 | where DeviceName == "acolyte756"
 | where RegistryKey contains "Schedule" // Focus on Task Scheduler registry entries
 | project Timestamp, RegistryKey, RegistryValueName, RegistryValueData, InitiatingProcessFileName
 | order by Timestamp asc
-Flag 5 – Obfuscated PowerShell Execution Analysis
+```
+### Flag 5 – Obfuscated PowerShell Execution Analysis
 Objective: Uncover signs of script concealment or encoding within PowerShell command-line activity, a common evasion technique.
 
 What was Hunted: PowerShell command lines containing parameters indicative of obfuscation, such as -EncodedCommand, -Command, or references to base64.
@@ -146,7 +150,7 @@ Discovery: "powershell.exe" -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAi
 Query Used:
 
 Code snippet
-
+```
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
 | where Timestamp between (datetime(2025-05-25 00:00:00) .. datetime(2025-05-25 23:59:59))  // Full day of May 25, 2025
@@ -154,7 +158,8 @@ DeviceProcessEvents
 | where ProcessCommandLine has_any ("-EncodedCommand", "-Command", "base64")  // Look for encoded PowerShell execution patterns
 | project Timestamp, DeviceName, FileName, ProcessCommandLine, AccountName
 | order by Timestamp asc
-Flag 6 – Evasion via Legacy Scripting Version
+```
+### Flag 6 – Evasion via Legacy Scripting Version
 Objective: Detect the adversary's use of outdated PowerShell script configurations, likely intended to bypass modern security controls and logging.
 
 What was Hunted: PowerShell execution flags that explicitly downgrade its version or reduce oversight, such as -Version 2 or -ExecutionPolicy Bypass.
@@ -166,14 +171,15 @@ Discovery: "powershell.exe" -Version 2 -NoProfile -ExecutionPolicy Bypass -NoExi
 Query Used:
 
 Code snippet
-
+```
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
 | where InitiatingProcessFileName == "powershell.exe"
 | where ProcessCommandLine has_any ("-Version", "2.0", "-ExecutionPolicy Bypass")  // Look for downgrade flags
 | project Timestamp, DeviceName, FileName, ProcessCommandLine, AccountName
 | order by Timestamp asc
-Flag 7 – Lateral Movement Discovery: Identifying the Next Target
+```
+### Flag 7 – Lateral Movement Discovery: Identifying the Next Target
 Objective: To reveal the intruder's next target system, indicating lateral movement beyond the initial breach point.
 
 What was Hunted: Outbound command patterns or network events that reference hostnames unfamiliar to the local machine, particularly those associated with remote execution tools or protocols.
@@ -185,7 +191,7 @@ While analyzing the command lines for previous PowerShell activities, I observed
 
 Discovery: victor-disa-vm
 
-Flag 8 – Remote Entry Point Artifacts
+### Flag 8 – Remote Entry Point Artifacts
 Objective: Identify subtle digital footprints left behind during the adversary's pivot to the newly compromised host.
 
 What was Hunted: Artifacts (files) with naming conventions that imply staging, synchronization, or temporary storage, indicative of preparation for further actions.
@@ -197,14 +203,15 @@ Discovery: savepoint_sync.lnk
 Query Used:
 
 Code snippet
-
+```
 DeviceFileEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the second compromised host
 | where FileName has_any ("staging", "checkpoint", "sync", "update", "test", "tmp")  // Look for specific suspicious naming patterns
 | where FileName contains "point"
 | project Timestamp, DeviceName, FileName, FolderPath, ActionType
 | order by Timestamp desc
-Flag 8.1 – Persistence Registration on New Entry Point
+```
+### Flag 8.1 – Persistence Registration on New Entry Point
 Objective: Detect attempts by the adversary to embed control mechanisms within the system configuration of the newly compromised host (victor-disa-vm).
 
 What was Hunted: Registry values tied to files or commands that were not present in a clean baseline, particularly those associated with the savepoint_sync.lnk artifact found previously.
@@ -219,14 +226,15 @@ Discovery: "powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Pu
 Query Used:
 
 Code snippet
-
+```
 DeviceRegistryEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the compromised host name
 | where RegistryKey has_any ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce", "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache")
 | where RegistryValueData has_any ("staging", "checkpoint", "sync", "update", "test", "tmp")  // Match file names found in previous query
 | project Timestamp, DeviceName, RegistryKey, RegistryValueName, RegistryValueData, InitiatingProcessFileName
 | order by Timestamp desc
-Flag 9 – External Communication Re-established from Pivot Point
+```
+### Flag 9 – External Communication Re-established from Pivot Point
 Objective: Verify if outbound communication, indicative of C2, was re-established from the newly compromised system (victor-disa-vm).
 
 What was Hunted: Remote destinations not associated with the organization’s known legitimate assets.
@@ -238,14 +246,15 @@ Discovery: "eo1v1texxlrdq3v.m.pipedream.net"
 Query Used:
 
 Code snippet
-
+```
 DeviceNetworkEvents
 | where DeviceName == "victor-disa-vm"
 | where RemoteUrl != "" or RemoteIPType == "Public"
 | where RemoteUrl !has "microsoft" and RemoteUrl !has "windowsupdate"
 | where InitiatingProcessFileName has_any ("powershell.exe", "cmd.exe", "wscript.exe", "curl.exe", "wget.exe")
 | order by Timestamp desc
-Flag 10 – Stealth Mechanism Registration: WMI Persistence
+```
+### Flag 10 – Stealth Mechanism Registration: WMI Persistence
 Objective: Uncover non-traditional persistence mechanisms, specifically those leveraging Windows Management Instrumentation (WMI), for enhanced stealth.
 
 What was Hunted: Execution patterns or command traces that silently embed PowerShell scripts via background system monitors, specifically looking for wmiprvse.exe initiating PowerShell with suspicious parameters or script names.
@@ -257,7 +266,7 @@ Discovery: 2025-05-26T02:48:07.2900744Z
 Query Used:
 
 Code snippet
-
+```
 /// Part 2: Find PowerShell executions triggered by WMI (likely malicious)
 DeviceProcessEvents
 | where FileName =~ "powershell.exe"
@@ -265,6 +274,7 @@ DeviceProcessEvents
 | where ProcessCommandLine has "beacon" or ProcessCommandLine has_cs "-nop -w hidden -e"  // Common PS attack patterns
 | project Timestamp, DeviceName, ProcessCommandLine, InitiatingProcessFileName, AccountName
 | sort by Timestamp asc
+
 
 DeviceProcessEvents // Adjust timeframe if needed
 | where FileName =~ "powershell.exe"
@@ -278,7 +288,8 @@ DeviceProcessEvents // Adjust timeframe if needed
     InitiatingProcessCommandLine,
     AccountName
 | sort by Timestamp asc  // Find the FIRST occurrence (earliest compromise)
-Flag 11 – Suspicious Data Access Simulation: Credential Theft Attempt
+```
+### Flag 11 – Suspicious Data Access Simulation: Credential Theft Attempt
 Objective: Detect test-like access patterns mimicking sensitive credential theft, often a precursor to actual data exfiltration.
 
 What was Hunted: References or interactions with files or processes suggestive of password storage or system secrets, particularly those with naming conventions similar to known credential dumping tools.
@@ -293,13 +304,14 @@ Discovery: mimidump_sim.txt
 Query Used:
 
 Code snippet
-
+```
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the second compromised host
 | where FileName contains "mim" or ProcessCommandLine contains "mim"
 | project Timestamp, DeviceName, FileName, ProcessCommandLine
 | order by Timestamp desc
-Flag 12 – Unusual Outbound Data Transfer
+```
+###Flag 12 – Unusual Outbound Data Transfer
 Objective: Investigate signs of potential data exfiltration or transfer to untrusted locations.
 
 What was Hunted: External destinations indicative of third-party file storage or sharing services, and the associated process's SHA256 hash.
@@ -311,12 +323,13 @@ Discovery: 9785001b0dcf755eddb8af294a373c0b87b2498660f724e76c4d53f9c217c7a3
 Query Used:
 
 Code snippet
-
+```
 DeviceNetworkEvents
 | where RemoteUrl in ("eo1v1texxlrdq3v.m.pipedream.net", "eoqsu1hq6e9ulga.m.pipedream.net")
 | project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessSHA256, RemoteUrl
 | order by Timestamp desc
-Flag 13 – Sensitive Asset Interaction
+```
+### Flag 13 – Sensitive Asset Interaction
 Objective: Reveal whether any internal documents of significant value or sensitivity were accessed by the adversary.
 
 What was Hunted: Access logs involving time-sensitive or project-critical files.
@@ -331,7 +344,7 @@ Discovery: RolloutPlan_v8_477.docx
 Query Used:
 
 Code snippet
-
+```
 //to find 2025-12.lnk
 DeviceFileEvents
 | where DeviceName == "victor-disa-vm"
@@ -340,7 +353,8 @@ DeviceFileEvents
 | project Timestamp, DeviceName, InitiatingProcessFileName, FileName, FolderPath, ActionType
 | order by Timestamp desc
 |distinct FileName,DeviceName,InitiatingProcessFileName, FolderPath
-Flag 14 – Tool Packaging Activity: Preparing for Movement
+```
+### Flag 14 – Tool Packaging Activity: Preparing for Movement
 Objective: Spot behaviors related to preparing malicious code or scripts for movement or exfiltration.
 
 What was Hunted: Instances of compression or packaging of local assets, particularly in non-administrative or public directories.
@@ -355,13 +369,14 @@ Discovery: "powershell.exe" -NoProfile -ExecutionPolicy Bypass -Command Compress
 Query Used:
 
 Code snippet
-
+```
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"
 | where FileName in~ ("powershell.exe", "pwsh.exe")
 | where ProcessCommandLine has "Compress-Archive"
 | project Timestamp, DeviceName, InitiatingProcessAccountName, FileName, ProcessCommandLine
-Flag 15 – Deployment Artifact Planted: Staged Payload
+```
+### Flag 15 – Deployment Artifact Planted: Staged Payload
 Objective: Verify whether staged payloads were successfully saved to disk, indicating readiness for execution or exfiltration.
 
 What was Hunted: Unusual file drops, particularly compressed archives, in public or shared paths that are not typically used for legitimate software or data storage.
@@ -376,22 +391,24 @@ Discovery: spicycore_loader_flag8.zip
 Query Used:
 
 Code snippet
-
+```
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"
 | where FileName in~ ("powershell.exe", "pwsh.exe")
 | where ProcessCommandLine has "Compress-Archive"
 | project Timestamp, DeviceName, InitiatingProcessAccountName, FileName, ProcessCommandLine
-Conclusion and Recommendations
+```
+## Conclusion and Recommendations
 This threat hunt successfully mapped a multi-stage intrusion, demonstrating the adversary's intent to establish deep persistence and achieve data exfiltration. The identified tactics, techniques, and procedures (TTPs) highlight a sophisticated attacker who leverages native tools (PowerShell, WMI, Scheduled Tasks) and obfuscation to maintain stealth. The chronological analysis of events, from initial access on Acolyte756 to lateral movement and data staging on victor-disa-vm, provides a comprehensive understanding of the attack chain.
 
-Key Takeaways:
+## Key Takeaways:
 
 Reliance on Native Tools: The adversary heavily utilized PowerShell, indicating a "living off the land" approach to minimize the footprint of custom malware.
 Layered Persistence: Multiple persistence mechanisms (Registry Run keys, Scheduled Tasks, WMI) were employed, showcasing the adversary's determination to maintain access.
 Evasion Techniques: Obfuscated PowerShell commands and the use of legacy PowerShell versions underscore the adversary's efforts to evade traditional detections.
 Targeted Data Acquisition: The focus on documents like RolloutPlan_v8_477.docx confirms the adversary's intent to acquire specific, high-value information.
-Recommendations for Enhanced Security Posture:
+
+## Recommendations for Enhanced Security Posture:
 
 Enhanced PowerShell Logging and Monitoring: Implement Script Block Logging, Module Logging, and Transcription for all PowerShell activities. Centralize these logs for robust analysis and anomaly detection. Develop specific detection rules for encoded commands and downgraded PowerShell versions.
 WMI Event Monitoring: Strengthen WMI event logging and actively monitor for suspicious WMI Permanent Event Consumers, Filters, and Bindings, especially those related to PowerShell execution.
