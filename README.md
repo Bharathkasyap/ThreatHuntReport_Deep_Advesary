@@ -560,33 +560,33 @@ Understanding the Tactics, Techniques, and Procedures (TTPs) provides a structur
 
 ## Key Takeaways:
 
-${{\color{orange}\small{\textsf{Reliance on Native Tools:\ }}}}\$ The adversary heavily utilized PowerShell, indicating a "living off the land" approach to minimize the footprint of custom malware.
+${{\color{orange}\normalsize{\textsf{Reliance on Native Tools:\ }}}}\$ The adversary heavily utilized PowerShell, indicating a "living off the land" approach to minimize the footprint of custom malware.
 
-${{\color{orange}\small{\textsf{Layered Persistence:\ }}}}\$ Multiple persistence mechanisms (Registry Run keys, Scheduled Tasks, WMI) were employed, showcasing the adversary's determination to maintain access.
+${{\color{orange}\normalsize{\textsf{Layered Persistence:\ }}}}\$ Multiple persistence mechanisms (Registry Run keys, Scheduled Tasks, WMI) were employed, showcasing the adversary's determination to maintain access.
 
-${{\color{orange}\small{\textsf{Evasion Techniques:\ }}}}\$ Obfuscated PowerShell commands and the use of legacy PowerShell versions underscore the adversary's efforts to evade traditional detections.
+${{\color{orange}\normalsize{\textsf{Evasion Techniques:\ }}}}\$ Obfuscated PowerShell commands and the use of legacy PowerShell versions underscore the adversary's efforts to evade traditional detections.
 
-${{\color{orange}\small{\textsf{Targeted Data Acquisition:\ }}}}\$ The focus on documents like RolloutPlan_v8_477.docx confirms the adversary's intent to acquire specific, high-value information.
+${{\color{orange}\normalsize{\textsf{Targeted Data Acquisition:\ }}}}\$ The focus on documents like RolloutPlan_v8_477.docx confirms the adversary's intent to acquire specific, high-value information.
 
 ## Recommendations for Enhanced Security Posture:
 
-${{\color{orange}\small{\textsf{Enhanced PowerShell Logging and Monitoring:\ }}}}\$ Implement Script Block Logging, Module Logging, and Transcription for all PowerShell activities. Centralize these logs for robust analysis and anomaly detection. Develop specific detection rules for encoded commands and downgraded PowerShell versions.
+${{\color{orange}\normalsize{\textsf{Enhanced PowerShell Logging and Monitoring:\ }}}}\$ Implement Script Block Logging, Module Logging, and Transcription for all PowerShell activities. Centralize these logs for robust analysis and anomaly detection. Develop specific detection rules for encoded commands and downgraded PowerShell versions.
 
-${{\color{orange}\small{\textsf{WMI Event Monitoring:\ }}}}\$ Strengthen WMI event logging and actively monitor for suspicious WMI Permanent Event Consumers, Filters, and Bindings, especially those related to PowerShell execution.
+${{\color{orange}\normalsize{\textsf{WMI Event Monitoring:\ }}}}\$ Strengthen WMI event logging and actively monitor for suspicious WMI Permanent Event Consumers, Filters, and Bindings, especially those related to PowerShell execution.
 
-${{\color{orange}\small{\textsf{Scheduled Task Monitoring:\ }}}}\$ Implement granular logging for scheduled task creation, modification, and execution. Establish baselines for legitimate tasks and alert on deviations.
+${{\color{orange}\normalsize{\textsf{Scheduled Task Monitoring:\ }}}}\$ Implement granular logging for scheduled task creation, modification, and execution. Establish baselines for legitimate tasks and alert on deviations.
 
-${{\color{orange}\small{\textsf{Outbound Network Traffic Analysis:\ }}}}\$ Continuously monitor common and uncommon registry run keys for unauthorized modifications or new entries, particularly those associated with scripting engines.
+${{\color{orange}\normalsize{\textsf{Outbound Network Traffic Analysis:\ }}}}\$ Continuously monitor common and uncommon registry run keys for unauthorized modifications or new entries, particularly those associated with scripting engines.
 
-${{\color{orange}\small{\textsf{Registry Monitoring for Persistence:\ }}}}\$ Implement deep packet inspection and network flow analysis to detect anomalous outbound connections to unsanual or untrusted domains and IP addresses, especially those associated with cloud services like Pipedream.
+${{\color{orange}\normalsize{\textsf{Registry Monitoring for Persistence:\ }}}}\$ Implement deep packet inspection and network flow analysis to detect anomalous outbound connections to unsanual or untrusted domains and IP addresses, especially those associated with cloud services like Pipedream.
 
-${{\color{orange}\small{\textsf{Endpoint Detection and Response (EDR) Tuning:\ }}}}\$ Review and fine-tune EDR rules to detect the specific TTPs observed, including suspicious file creations (e.g., savepoint_sync.ps1, mimidump_sim.txt, spicycore_loader_flag8.zip) and process command lines.
+${{\color{orange}\normalsize{\textsf{Endpoint Detection and Response (EDR) Tuning:\ }}}}\$ Review and fine-tune EDR rules to detect the specific TTPs observed, including suspicious file creations (e.g., savepoint_sync.ps1, mimidump_sim.txt, spicycore_loader_flag8.zip) and process command lines.
 
-${{\color{orange}\small{\textsf{User Behavior Analytics (UBA):\ }}}}\$ Leverage UBA solutions to identify unusual user activity, such as access to sensitive documents at atypical times or or from unexpected locations.
+${{\color{orange}\normalsize{\textsf{User Behavior Analytics (UBA):\ }}}}\$ Leverage UBA solutions to identify unusual user activity, such as access to sensitive documents at atypical times or or from unexpected locations.
 
-${{\color{orange}\small{\textsf{Regular Credential Hygiene Audits:\ }}}}\$ Implement robust password policies, enforce multi-factor authentication (MFA) where possible, and regularly audit for credential reuse or weak local administrator passwords.
+${{\color{orange}\normalsize{\textsf{Regular Credential Hygiene Audits:\ }}}}\$ Implement robust password policies, enforce multi-factor authentication (MFA) where possible, and regularly audit for credential reuse or weak local administrator passwords.
 
-${{\color{orange}\small{\textsf{Threat Intelligence Integration:\ }}}}\$ Continuously update threat intelligence feeds to include IOCs identified in this hunt and monitor for similar TTPs reported by other organizations.
+${{\color{orange}\normalsize{\textsf{Threat Intelligence Integration:\ }}}}\$ Continuously update threat intelligence feeds to include IOCs identified in this hunt and monitor for similar TTPs reported by other organizations.
 
 
 This hunt has provided invaluable insights into the adversary's methodology. By implementing these recommendations, our organization can significantly improve its resilience against similar advanced persistent threats and reduce the risk of future compromises. Continuous proactive threat hunting, informed by intelligence and internal findings, remains crucial to staying ahead of evolving threats.
