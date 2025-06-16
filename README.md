@@ -582,11 +582,13 @@ Targeted Data Acquisition: The focus on documents like RolloutPlan_v8_477.docx c
 
 ## Recommendations for Enhanced Security Posture:
 
-### Enhanced PowerShell Logging and Monitoring: Implement Script Block Logging, Module Logging, and Transcription for all PowerShell activities. Centralize these logs for robust analysis and anomaly detection. Develop specific detection rules for encoded commands and downgraded PowerShell versions.
+### Enhanced PowerShell Logging and Monitoring: 
+Implement Script Block Logging, Module Logging, and Transcription for all PowerShell activities. Centralize these logs for robust analysis and anomaly detection. Develop specific detection rules for encoded commands and downgraded PowerShell versions.
 
-### WMI Event Monitoring: Strengthen WMI event logging and actively monitor for suspicious WMI Permanent Event Consumers, Filters, and Bindings, especially those related to PowerShell execution.
+### WMI Event Monitoring: 
+Strengthen WMI event logging and actively monitor for suspicious WMI Permanent Event Consumers, Filters, and Bindings, especially those related to PowerShell execution.
 
-### Scheduled Task Monitoring: Implement granular logging for scheduled task creation, modification, and execution. Establish baselines for legitimate tasks and alert on deviations.
+### Scheduled Task Monitoring:### Implement granular logging for scheduled task creation, modification, and execution. Establish baselines for legitimate tasks and alert on deviations.
 Registry Monitoring for Persistence: Continuously monitor common and uncommon registry run keys for unauthorized modifications or new entries, particularly those associated with scripting engines.
 
 ### Outbound Network Traffic Analysis: Implement deep packet inspection and network flow analysis to detect anomalous outbound connections to unsanual or untrusted domains and IP addresses, especially those associated with cloud services like Pipedream.
