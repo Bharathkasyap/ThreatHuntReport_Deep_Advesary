@@ -23,7 +23,7 @@ Our mission: trace the initial access vector, map the extent of lateral propagat
 Crucially, this adversary operated with extreme stealth. No traditional alerts fired. No overt password changes were detected. Yet, an unwelcome presence had permeated our defenses. The lingering question remains: *has the adversary truly departed, or is this merely a lull before their return?*
 
 <div align="center">
- <img src =https://github.com/user-attachments/assets/1d94b9fe-bd19-4e9a-b130-5dd7ffb2c4d5 width="500">
+ <img src =https://github.com/Bharathkasyap/ThreatHuntReport_Deep_Advesary/blob/main/Image.png width="500">
 </div>
  </br>
 
