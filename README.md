@@ -582,23 +582,28 @@ Targeted Data Acquisition: The focus on documents like RolloutPlan_v8_477.docx c
 
 ## Recommendations for Enhanced Security Posture:
 
-### Enhanced PowerShell Logging and Monitoring: 
+#### Enhanced PowerShell Logging and Monitoring: 
 Implement Script Block Logging, Module Logging, and Transcription for all PowerShell activities. Centralize these logs for robust analysis and anomaly detection. Develop specific detection rules for encoded commands and downgraded PowerShell versions.
 
-### WMI Event Monitoring: 
+#### WMI Event Monitoring: 
 Strengthen WMI event logging and actively monitor for suspicious WMI Permanent Event Consumers, Filters, and Bindings, especially those related to PowerShell execution.
 
-### Scheduled Task Monitoring:### Implement granular logging for scheduled task creation, modification, and execution. Establish baselines for legitimate tasks and alert on deviations.
+#### Scheduled Task Monitoring:
+Implement granular logging for scheduled task creation, modification, and execution. Establish baselines for legitimate tasks and alert on deviations.
 Registry Monitoring for Persistence: Continuously monitor common and uncommon registry run keys for unauthorized modifications or new entries, particularly those associated with scripting engines.
 
-### Outbound Network Traffic Analysis: Implement deep packet inspection and network flow analysis to detect anomalous outbound connections to unsanual or untrusted domains and IP addresses, especially those associated with cloud services like Pipedream.
+#### Outbound Network Traffic Analysis: 
+Implement deep packet inspection and network flow analysis to detect anomalous outbound connections to unsanual or untrusted domains and IP addresses, especially those associated with cloud services like Pipedream.
 
-### Endpoint Detection and Response (EDR) Tuning: Review and fine-tune EDR rules to detect the specific TTPs observed, including suspicious file creations (e.g., savepoint_sync.ps1, mimidump_sim.txt, spicycore_loader_flag8.zip) and process command lines.
+#### Endpoint Detection and Response (EDR) Tuning: 
+Review and fine-tune EDR rules to detect the specific TTPs observed, including suspicious file creations (e.g., savepoint_sync.ps1, mimidump_sim.txt, spicycore_loader_flag8.zip) and process command lines.
 
-### User Behavior Analytics (UBA): Leverage UBA solutions to identify unusual user activity, such as access to sensitive documents at atypical times or or from unexpected locations.
+#### User Behavior Analytics (UBA): 
+Leverage UBA solutions to identify unusual user activity, such as access to sensitive documents at atypical times or or from unexpected locations.
 Regular Credential Hygiene Audits: Implement robust password policies, enforce multi-factor authentication (MFA) where possible, and regularly audit for credential reuse or weak local administrator passwords.
 
-### Threat Intelligence Integration: Continuously update threat intelligence feeds to include IOCs identified in this hunt and monitor for similar TTPs reported by other organizations.
+#### Threat Intelligence Integration: 
+Continuously update threat intelligence feeds to include IOCs identified in this hunt and monitor for similar TTPs reported by other organizations.
 This hunt has provided invaluable insights into the adversary's methodology. By implementing these recommendations, our organization can significantly improve its resilience against similar advanced persistent threats and reduce the risk of future compromises. Continuous proactive threat hunting, informed by intelligence and internal findings, remains crucial to staying ahead of evolving threats.
 
 
