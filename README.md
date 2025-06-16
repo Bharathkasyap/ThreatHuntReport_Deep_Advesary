@@ -64,7 +64,7 @@ Discovery: 2025-05-25T09:14:02.3908261Z
 
 Query Used:
 
-```
+```kusto
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
 | where InitiatingProcessFileName == "powershell.exe"
@@ -83,7 +83,7 @@ Discovery: eoqsu1hq6e9ulga.m.pipedream.net
 
 Query Used:
 
-```
+```kusto
 DeviceNetworkEvents
 | where DeviceName == "acolyte756"
 | where RemoteUrl != "" or RemoteIPType == "Public"
@@ -106,7 +106,7 @@ Discovery: C2.ps1
 
 Query Used:
 
-```
+```kusto
 DeviceRegistryEvents
 | where DeviceName == "acolyte756"
 | where InitiatingProcessFileName has_any ("powershell.exe")
@@ -127,7 +127,7 @@ Discovery: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sched
 
 Query Used:
 
-```
+```kusto
 DeviceRegistryEvents
 | where DeviceName == "acolyte756"
 | where RegistryKey contains "Schedule" // Focus on Task Scheduler registry entries
@@ -145,7 +145,7 @@ Discovery: "powershell.exe" -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAi
 
 Query Used:
 
-```
+```kusto
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
 | where Timestamp between (datetime(2025-05-25 00:00:00) .. datetime(2025-05-25 23:59:59))  // Full day of May 25, 2025
@@ -165,7 +165,7 @@ Discovery: "powershell.exe" -Version 2 -NoProfile -ExecutionPolicy Bypass -NoExi
 
 Query Used:
 
-```
+```kusto
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
 | where InitiatingProcessFileName == "powershell.exe"
@@ -196,7 +196,7 @@ Discovery: savepoint_sync.lnk
 
 Query Used:
 
-```
+```kusto
 DeviceFileEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the second compromised host
 | where FileName has_any ("staging", "checkpoint", "sync", "update", "test", "tmp")  // Look for specific suspicious naming patterns
@@ -218,7 +218,7 @@ Discovery: "powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Pu
 
 Query Used:
 
-```
+```kusto
 DeviceRegistryEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the compromised host name
 | where RegistryKey has_any ("SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Run", "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\RunOnce", "SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion\\Schedule\\TaskCache")
@@ -237,7 +237,7 @@ Discovery: "eo1v1texxlrdq3v.m.pipedream.net"
 
 Query Used:
 
-```
+```kusto
 DeviceNetworkEvents
 | where DeviceName == "victor-disa-vm"
 | where RemoteUrl != "" or RemoteIPType == "Public"
@@ -256,7 +256,7 @@ Discovery: 2025-05-26T02:48:07.2900744Z
 
 Query Used:
 
-```
+```kusto
 /// Part 2: Find PowerShell executions triggered by WMI (likely malicious)
 DeviceProcessEvents
 | where FileName =~ "powershell.exe"
@@ -293,7 +293,7 @@ Discovery: mimidump_sim.txt
 
 Query Used:
 
-```
+```kusto
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the second compromised host
 | where FileName contains "mim" or ProcessCommandLine contains "mim"
@@ -311,7 +311,7 @@ Discovery: 9785001b0dcf755eddb8af294a373c0b87b2498660f724e76c4d53f9c217c7a3
 
 Query Used:
 
-```
+```kusto
 DeviceNetworkEvents
 | where RemoteUrl in ("eo1v1texxlrdq3v.m.pipedream.net", "eoqsu1hq6e9ulga.m.pipedream.net")
 | project Timestamp, DeviceName, InitiatingProcessFileName, InitiatingProcessSHA256, RemoteUrl
@@ -331,7 +331,7 @@ Discovery: RolloutPlan_v8_477.docx
 
 Query Used:
 
-```
+```kusto
 //to find 2025-12.lnk
 DeviceFileEvents
 | where DeviceName == "victor-disa-vm"
@@ -355,7 +355,7 @@ Discovery: "powershell.exe" -NoProfile -ExecutionPolicy Bypass -Command Compress
 
 Query Used:
 
-```
+```kusto
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"
 | where FileName in~ ("powershell.exe", "pwsh.exe")
@@ -376,7 +376,7 @@ Discovery: spicycore_loader_flag8.zip
 
 Query Used:
 
-```
+```kusto
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"
 | where FileName in~ ("powershell.exe", "pwsh.exe")
