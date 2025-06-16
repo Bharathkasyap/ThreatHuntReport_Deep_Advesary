@@ -35,7 +35,7 @@ You can view the attack scenario with full narrative and graphics here:
 👉 [**Scenario: The Unseen Intrusion**](#scenario-the-unseen-intrusion)
 
 ---
-## Scenario: The Unseen Intrusion
+<details><Summary><Strong></Strong></Summary>## Scenario: The Unseen Intrusion
 
 For weeks, a subtle, yet unsettling pattern of outbound network activity to obscure cloud endpoints had been surfacing across our partner organizations in Southeast Asia and Eastern Europe. Initially, these anomalies were dismissed as benign automated processes. However, a deeper analysis revealed a disquieting alignment: irregular PowerShell bursts, unexplained registry modifications, and credential traces consistent with known red-team tooling began to emerge across disparate sectors, including telecom, defense, and manufacturing.
 
@@ -55,6 +55,7 @@ Crucially, this adversary operated with extreme stealth. No traditional alerts f
  </br>
 
 ---
+</details>
 
 ## Chronological Hunt Narrative & Analysis
 
@@ -68,7 +69,7 @@ This section details the progression of the threat hunt, presenting each discove
 *Timeframe of Interest*: Approximately May 24th, 2025, suggesting a window spanning a day before and a day after to capture precursor activities or immediate follow-ups.
 
 <details>
-<summary><strong>**Query Used**:
+**Query Used**:
 ```kusto
 DeviceProcessEvents
 | where Timestamp between (datetime(2025-05-23 00:00:00) ..datetime(2025-05-25 23:59:59) )
@@ -76,7 +77,6 @@ DeviceProcessEvents
 | where DeviceName startswith "a"
 |order by ProcessCount asc
 ```
-</details>
 Discovery: Acolyte756
 
 ### Flag 1 – Initial PowerShell Execution Detection
