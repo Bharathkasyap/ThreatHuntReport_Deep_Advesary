@@ -64,7 +64,6 @@ Discovery: 2025-05-25T09:14:02.3908261Z
 
 Query Used:
 
-Code snippet
 ```
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
@@ -84,7 +83,6 @@ Discovery: eoqsu1hq6e9ulga.m.pipedream.net
 
 Query Used:
 
-Code snippet
 ```
 DeviceNetworkEvents
 | where DeviceName == "acolyte756"
@@ -108,7 +106,6 @@ Discovery: C2.ps1
 
 Query Used:
 
-Code snippet
 ```
 DeviceRegistryEvents
 | where DeviceName == "acolyte756"
@@ -130,7 +127,6 @@ Discovery: HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion\Sched
 
 Query Used:
 
-Code snippet
 ```
 DeviceRegistryEvents
 | where DeviceName == "acolyte756"
@@ -149,7 +145,6 @@ Discovery: "powershell.exe" -EncodedCommand VwByAGkAdABlAC0ATwB1AHQAcAB1AHQAIAAi
 
 Query Used:
 
-Code snippet
 ```
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
@@ -170,7 +165,6 @@ Discovery: "powershell.exe" -Version 2 -NoProfile -ExecutionPolicy Bypass -NoExi
 
 Query Used:
 
-Code snippet
 ```
 DeviceProcessEvents
 | where DeviceName == "acolyte756"
@@ -202,7 +196,6 @@ Discovery: savepoint_sync.lnk
 
 Query Used:
 
-Code snippet
 ```
 DeviceFileEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the second compromised host
@@ -225,7 +218,6 @@ Discovery: "powershell.exe -NoProfile -ExecutionPolicy Bypass -File "C:\Users\Pu
 
 Query Used:
 
-Code snippet
 ```
 DeviceRegistryEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the compromised host name
@@ -245,7 +237,6 @@ Discovery: "eo1v1texxlrdq3v.m.pipedream.net"
 
 Query Used:
 
-Code snippet
 ```
 DeviceNetworkEvents
 | where DeviceName == "victor-disa-vm"
@@ -265,7 +256,6 @@ Discovery: 2025-05-26T02:48:07.2900744Z
 
 Query Used:
 
-Code snippet
 ```
 /// Part 2: Find PowerShell executions triggered by WMI (likely malicious)
 DeviceProcessEvents
@@ -303,7 +293,6 @@ Discovery: mimidump_sim.txt
 
 Query Used:
 
-Code snippet
 ```
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"  // Replace with the second compromised host
@@ -322,7 +311,6 @@ Discovery: 9785001b0dcf755eddb8af294a373c0b87b2498660f724e76c4d53f9c217c7a3
 
 Query Used:
 
-Code snippet
 ```
 DeviceNetworkEvents
 | where RemoteUrl in ("eo1v1texxlrdq3v.m.pipedream.net", "eoqsu1hq6e9ulga.m.pipedream.net")
@@ -343,7 +331,6 @@ Discovery: RolloutPlan_v8_477.docx
 
 Query Used:
 
-Code snippet
 ```
 //to find 2025-12.lnk
 DeviceFileEvents
@@ -368,7 +355,6 @@ Discovery: "powershell.exe" -NoProfile -ExecutionPolicy Bypass -Command Compress
 
 Query Used:
 
-Code snippet
 ```
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"
@@ -390,7 +376,6 @@ Discovery: spicycore_loader_flag8.zip
 
 Query Used:
 
-Code snippet
 ```
 DeviceProcessEvents
 | where DeviceName == "victor-disa-vm"
